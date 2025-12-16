@@ -12,13 +12,14 @@ import CandidateAnalytics from "./pages/CandidateAnalytics";
 import { Button } from "@/components/ui/button";
 import PracticePage from "./pages/CandidatePracticePage";
 import ExaminerAnalytics from "./pages/ExaminerAnalytics";
+import Landing from "./pages/Landing";
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<Signup/>} />
+          <Route path="/" element={<Landing/>} />
           <Route path="/login/" element={<Login />} />
           <Route path="/signup/" element={<Signup />} />
           
@@ -43,6 +44,8 @@ function App() {
           <Route path="/result/:attemptId" element={<ShowResult />} />
 
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/home" element={<Landing />} />
+
         </Routes>
       </Router>
     </div>
