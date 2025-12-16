@@ -106,7 +106,7 @@ export default function Signup() {
             {/* HEADER */}
             <div className="text-center">
               <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">
-                Create an account
+                Create an account one two three
               </h1>
               <p className="text-sm text-gray-500 mt-2">
                 Sign up to get started with your new account
