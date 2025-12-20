@@ -1,10 +1,7 @@
 Basic version:
 
-
-
 1)
 ⚫Delete the whole test from the side of examiner.
-⚫working search bar based on the name of the test.
 
 2)client should see test duration and examiner should get option to set the time of the test(schema change).
 

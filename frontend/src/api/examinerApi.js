@@ -8,3 +8,6 @@ export const getAllTests = () =>
 
 export const getTestResults = (testId) =>
     axiosClient.get(`/examiner/test/${testId}/results`);
+
+export const deleteTest = (testId) =>
+    axiosClient.delete(`/examiner/test/${testId}`);

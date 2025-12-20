@@ -80,4 +80,36 @@ async function getTestResults(req, res) {
   }
 }
 
-module.exports = { createTest, listTests ,getTestResults};
+// 
+async function deleteTest(req, res) {
+  const { testId } = req.params;
+  try {
+     console.log("DELETE HIT");
+    console.log("Params:", req.params);
+    console.log("User:", req.user);
+    const test = await prisma.test.findUnique({
+      where: { id: Number(testId) },
+    });
+      console.log("Found test:", test);
+    if (!test) {
+      return res.status(404).json({ error: "Test not found" });
+    }
+
+    // 2️⃣ Authorization check
+    if (test.examinerId !== req.user.userId) {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    // 3️⃣ Delete test (cascade deletes everything related)
+    await prisma.test.delete({
+      where: { id: Number(testId) },
+    });
+
+    res.json({ message: "Test deleted successfully" });
+  } catch (err) {
+     console.error("DELETE ERROR 👉", err);
+    res.status(500).json({ error: "Failed to delete test" });
+  }
+}
+
+module.exports = { createTest, listTests ,getTestResults, deleteTest};

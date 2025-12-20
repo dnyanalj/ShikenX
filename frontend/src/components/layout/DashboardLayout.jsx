@@ -10,6 +10,7 @@ export default function DashboardLayout({
   role = "candidate",
   tests,
   onStartExam,
+  handleDelete,
 }) {
   return (
     <div className="flex h-screen w-full overflow-hidden bg-gray-50">
@@ -31,7 +32,7 @@ export default function DashboardLayout({
                 role === "candidate" ? (
                   <CandidateCard key={test.id} test={test} onStartExam={onStartExam} />
                 ) : (
-                  <ExaminerCard key={test.id} test={test} />
+                  <ExaminerCard key={test.id} test={test} handleDelete={handleDelete} />
                 )
               )
             ) : (

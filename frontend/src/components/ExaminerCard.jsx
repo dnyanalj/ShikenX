@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, BarChart3 } from "lucide-react";
+import { CalendarDays, BarChart3, Trash2 } from "lucide-react";
 
-const ExaminerCard = ({ test }) => {
+const ExaminerCard = ({ test, handleDelete }) => {
   const navigate = useNavigate();
 
   const now = new Date();
@@ -53,24 +53,28 @@ const ExaminerCard = ({ test }) => {
         </div>
       </CardContent>
 
-      <CardFooter className="flex justify-between items-center">
-        <div className="flex items-center gap-1 text-sm text-gray-500">
-          <BarChart3 className="w-4 h-4" />
-          <span>Results</span>
-        </div>
+      <CardFooter className="flex justify-between items-center gap-2">
         <Button
-          onClick={() => navigate(`/examiner/test/${test.id}/results`)}
-          className="transition-all bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm hover:shadow-md"
           size="sm"
+          variant="outline"
+          onClick={() => navigate(`/examiner/test/${test.id}/results`)}
         >
-          View Results →
+          View Results
+        </Button>
+
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={() => handleDelete(test.id)}
+        >
+          <Trash2 className="w-4 h-4 mr-1" />
+          Delete
         </Button>
       </CardFooter>
 
-      {/* subtle gradient border effect */}
       <div className="absolute inset-0 -z-10 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40" />
     </Card>
   );
 };
 
-export default ExaminerCard  ;
+export default ExaminerCard;

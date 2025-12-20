@@ -28,46 +28,58 @@ model Test {
   title       String
   examiner    User       @relation(fields: [examinerId], references: [id], name: "ExaminerTests")
   examinerId  Int
+
   questions   Question[]
+  attempts    Attempt[]
+
   scheduledAt DateTime?
   createdAt   DateTime   @default(now())
-  attempts    Attempt[]  // 👈 each test can still have multiple attempts (from different users)
 }
 
 model Question {
   id       Int      @id @default(autoincrement())
   text     String
-  test     Test     @relation(fields: [testId], references: [id])
+
+  test     Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
   testId   Int
+
   options  Option[]
-  answerId Int?     // option id of correct option
+  answerId Int?
 }
 
 model Option {
   id         Int      @id @default(autoincrement())
   text       String
-  question   Question @relation(fields: [questionId], references: [id])
+
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId Int
 }
+
 model Attempt {
   id          Int      @id @default(autoincrement())
+
   candidate   User     @relation(fields: [candidateId], references: [id])
   candidateId Int
-  test        Test     @relation(fields: [testId], references: [id])
+
+  test        Test     @relation(fields: [testId], references: [id], onDelete: Cascade)
   testId      Int
+
   score       Int?
   answers     Answer[]
+
   startedAt   DateTime @default(now())
   finishedAt  DateTime?
-  status      String    @default("ONGOING")  
-  @@unique([candidateId, testId]) // 👈 ensures only ONE attempt per candidate-test pair
+  status      String   @default("ONGOING")
+
+  @@unique([candidateId, testId])
 }
 
-
 model Answer {
-  id         Int     @id @default(autoincrement())
-  attempt    Attempt @relation(fields: [attemptId], references: [id])
+  id         Int      @id @default(autoincrement())
+
+  attempt    Attempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
   attemptId  Int
+
   questionId Int
   optionId   Int?
 }
